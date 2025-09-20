@@ -5,7 +5,7 @@ public class Metrics {
     private long allocations = 0;
     private int depth = 0;
     private int maxDepth = 0;
-
+//
     public void incComparisons(){ comparisons++; }
     public void incSwaps(){ swaps++; }
     public void addAllocations(long n){ allocations += n; }

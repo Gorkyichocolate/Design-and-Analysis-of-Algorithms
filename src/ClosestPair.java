@@ -40,7 +40,7 @@ public class ClosestPair {
         Result dr = recur(px, pyrList.toArray(new Point[0]), mid, r);
         Result best = dl.dist < dr.dist ? dl : dr;
         double d = best.dist;
-
+//
         Point[] strip = new Point[py.length];
         int m = 0;
         for(Point p: py){
