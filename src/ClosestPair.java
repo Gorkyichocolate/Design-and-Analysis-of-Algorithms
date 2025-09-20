@@ -57,7 +57,7 @@ public class ClosestPair {
         }
         return best;
     }
-
+//
     private static Result brute(Point[] a, int l, int r){
         double best = Double.POSITIVE_INFINITY;
         Point pa = null, pb = null;
