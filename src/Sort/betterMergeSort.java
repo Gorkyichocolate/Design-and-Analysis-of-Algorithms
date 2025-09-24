@@ -1,9 +1,10 @@
-package mergeSort;
+package Sort;
 
 public class betterMergeSort {
     public static void mergeSort(int[] arr) {
         int[] buffer = new int[arr.length];
         mergeSort(arr, buffer, 0, arr.length - 1);
+        return;
     }
 
     public static void mergeSort(int[] arr, int[] buffer, int left, int right) {
