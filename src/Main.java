@@ -1,12 +1,10 @@
-import main.algorithms.*;
-import main.cli.BenchmarkRunner;
+import main.algorithms.InsertionSortBinary;
+import main.algorithms.SelectionSort;
 import main.metrics.PerformanceTracker;
-import test.SelectionSortTest;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -15,31 +13,16 @@ public class Main {
 
         try (FileWriter writer = new FileWriter(fileName)) {
 
-            writer.append("n,TimeMs,Comparisons,Swaps\n");
+            writer.append("Algorithm,n,TimeMs,Comparisons,Swaps\n");
 
             for (int n : sizes) {
-                int[] arr = generateRandomArray(n);
-                PerformanceTracker tracker = new PerformanceTracker();
+                int[] arrRandom = generateRandomArray(n);
 
-                long start = System.nanoTime();
-                main.algorithms.SelectionSort.sort(arr, tracker);
-                long end = System.nanoTime();
+                //SelectionSort
+                runAndWrite("SelectionSort", arrRandom, writer, n);
 
-                double timeMs = (end - start) / 1_000_000.0;
-
-                // Write results to CSV
-                writer.append(n + "," + timeMs + "," + tracker.getComparisons() + "," + tracker.getSwaps() + "\n");
-
-                // Print results in console
-                System.out.println("n=" + n +
-                        " | Time=" + timeMs + "ms" +
-                        " | Comparisons=" + tracker.getComparisons() +
-                        " | Swaps=" + tracker.getSwaps());
-
-                // Verify array is sorted
-                if (!isSorted(arr)) {
-                    System.out.println("Error: array is not sorted!");
-                }
+                //InsertionSortBinary
+                runAndWrite("InsertionSortBinary", arrRandom, writer, n);
             }
 
             System.out.println("Results saved to " + fileName);
@@ -48,9 +31,38 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println(" ");
+        System.out.println();
         System.out.println("Absolute path: " + new java.io.File(fileName).getAbsolutePath());
+    }
 
+    private static void runAndWrite(String algorithmName, int[] arr, FileWriter writer, int n) throws IOException {
+        int[] copy = arr.clone(); // чтобы оба алгоритма сортировали один и тот же массив
+        PerformanceTracker tracker = new PerformanceTracker();
+
+        long start = System.nanoTime();
+
+        if (algorithmName.equals("SelectionSort")) {
+            SelectionSort.sort(copy, tracker);
+        } else if (algorithmName.equals("InsertionSortBinary")) {
+            InsertionSortBinary.sort(copy, tracker);
+        }
+
+        long end = System.nanoTime();
+        double timeMs = (end - start) / 1_000_000.0;
+
+        // Запись в CSV
+        writer.append(algorithmName + "," + n + "," + timeMs + "," +
+                tracker.getComparisons() + "," + tracker.getSwaps() + "\n");
+
+        // Вывод в консоль
+        System.out.println(algorithmName + " | n=" + n +
+                " | Time=" + timeMs + " ms" +
+                " | Comparisons=" + tracker.getComparisons() +
+                " | Swaps=" + tracker.getSwaps());
+
+        if (!isSorted(copy)) {
+            System.out.println("Error: " + algorithmName + " did not sort correctly!");
+        }
     }
 
     private static int[] generateRandomArray(int n) {
