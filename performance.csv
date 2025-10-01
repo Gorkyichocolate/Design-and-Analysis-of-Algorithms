@@ -1,9 +1,9 @@
 Algorithm,n,TimeMs,Comparisons,Swaps
-SelectionSort,100,0.6018,4950,94
-InsertionSortBinary,100,0.7033,534,2504
-SelectionSort,1000,7.7671,499500,995
-InsertionSortBinary,1000,5.7913,8592,244939
-SelectionSort,5000,25.319,12497500,4994
-InsertionSortBinary,5000,10.8272,54449,6242311
-SelectionSort,10000,22.4643,49995000,9989
-InsertionSortBinary,10000,29.0343,119028,24991529
+SelectionSort,100,0.4485,4950,94
+InsertionSortBinary,100,0.6605,537,2156
+SelectionSort,1000,6.1711,499500,993
+InsertionSortBinary,1000,3.4093,8581,244326
+SelectionSort,5000,18.3559,12497500,4985
+InsertionSortBinary,5000,7.3062,54500,6208766
+SelectionSort,10000,18.4078,49995000,9989
+InsertionSortBinary,10000,20.6199,118968,24764099
